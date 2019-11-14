@@ -1,0 +1,14 @@
+{
+  "name": "practicayargs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "yargs01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^14.2.0"
+  }
+}
