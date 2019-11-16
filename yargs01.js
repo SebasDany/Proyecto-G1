@@ -17,8 +17,9 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+ let path1=rgv.path
 
-if (rgv.usuario ==='publicar'){
+if (rgv.usuario ==='publicar' && rgv.path==path1 ){
 
     let x={'nombre':"jaime"};
     let y={'apodo':"sebas"};

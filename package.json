@@ -1,7 +1,6 @@
 {
   "name": "practicayargs",
   "version": "1.0.0",
-  "description": "",
   "main": "yargs01.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +8,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.1.0",
+    "csv-parse": "^4.8.1",
+    "csv-parser": "^2.3.2",
+    "fast-csv": "^3.4.0",
+    "jsonstream": "^1.0.3",
+    "loader": "^2.1.1",
     "yargs": "^14.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebasDany/Proyecto-G1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SebasDany/Proyecto-G1/issues"
+  },
+  "homepage": "https://github.com/SebasDany/Proyecto-G1#readme",
+  "description": ""
 }
