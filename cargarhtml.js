@@ -23,3 +23,27 @@ module.exports.cargarHtml = function(dt) {
         console.log(`Server running at http://${hostname}:${port}/`);
     });
 }
+
+module.exports.guardarDatos = (nombre, dato, definicion) => {
+
+    return new Promise((resolve, reject) => {
+
+        let data = definicion;
+
+        for (let i = 0; i < dato.length; i++) {
+            data += `${ dato[i]} \n`;
+        }
+
+
+        fs.appendFile(`${ nombre }.txt`, data, (err) => {
+
+            if (err)
+                reject(err)
+            else
+                resolve(`${ nombre }.txt`.green);
+
+        });
+
+    });
+
+}
