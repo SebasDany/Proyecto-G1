@@ -1,7 +1,7 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const rgv =require('yargs').argv;
-
+const colors = require('colors');
 
 const filepath = "pro.csv"
 const results = [];
@@ -86,33 +86,34 @@ let top1='';
 
        console.log('')
        console.log('')
-       console.log("LA MEDIA DE SUSCRIPCIONES DE TODOS LOS PAÍSES EN EL YEAR ESPECIFICADO :",acum/count);
+       console.log(`LA MEDIA DE SUSCRIPCIONES DE TODOS LOS PAISES EN LA ANUALIDAD (YEAR) ESPECIFICADA : `.blue,`${ acum/count}`.green);
        console.log('')
        console.log('')
        sg=acum/count;
        if(sus_pai<acum)  {
-        console.log("LA SUSCRIPCION: ",sus_pai ," DEL PAIS: ",pais,":",Cod,"ES MENOR A LA MEDIA MUNDIAL")
+       
+        console.log( `LAS SUSCRIPCIONES:`.blue,` ${ sus_pai} `.green,` DEL PAIS:`.blue,` ${pais} : ${Cod}`.green, `ES MENOR A LA MEDIA MUNDIAL `.blue)
         console.log('')
         console.log('')
 
        } else{
-        console.log("LA SUSCRIPCION: ",sus_pai ,"DEL PAIS: ",pais,":",Cod,"ES MAYOR A LA MEDIA MUNDIAL")
+        console.log( `LAS SUSCRIPCIONES:`.blue,` ${ sus_pai} `.green,` DEL PAIS:`.blue,` ${pais} : ${Cod}`.green, `ES MAYOR A LA MEDIA MUNDIAL `.blue)
         console.log('')
        console.log('')
 
        } 
 
-       console.log('LOS CINCO PAÍSES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAÍS DETERMINADO')
+       console.log(`LOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
        console.log(mayor1);
        console.log('')
        console.log('')
        
-       console.log('LOS CINCO PAÍSES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAÍS DETERMINADO')
+       console.log(`LOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
        console.log(menor);
        console.log('')
        console.log('')
        
-       console.log('EL TOP CINCO DE PAÍSES PARA EL YEAR ESPECIFICADO')
+       console.log(`EL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA`.blue)
        //console.log(top);
 var keys = Object.keys(top);
 var i, len = keys.length;  
