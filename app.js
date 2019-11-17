@@ -1,38 +1,20 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const rgv =require('yargs').argv;
-const http = require('http');
-const hostname = '127.0.0.1';
-const port = 3000;
+
 
 const filepath = "pro.csv"
 const results = [];
 let path=rgv.file;
 let ciudadCod=rgv.country;
 let anio=rgv.year
-fs.createReadStream(filepath)
+const metodo = require('./cargarhtml.js');
+if (rgv.year==null){
+  anio=2018;
+}
 
-    .on('error', () => {
-
-        // handle error
-    })
-    .pipe(csv())
-    //.pipe(fs.createWriteStream('./jola.json'))
-    .on('data', (row) => {
-    
-        results.push(row)
-    })
-
-    .on('end', () => {
-        // handle end of CSV
-        //console.log(results)
-
-        if (rgv.usuario ==='mostrar'){
+  if (rgv.usuario ==='publicar' ){
             //console.log(results);
-        }else{
-            console.log("codigo no valido");
-        }
-    });
 
 fs.readFile(path, 'utf8', function (err, data) {
   data = data.replace(/"/g, "");
@@ -73,7 +55,6 @@ let top1='';
              pais=d[j-1];
              Cod=d[j];
                 sus_pai=Number(d[b])
-
             }   
         }
         if (i>4){ 
@@ -127,9 +108,8 @@ for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
   top1 +="<tr><tr><th scope=row>"+x+"</th><td>"+JSON.stringify(sortedDict[t5]).replace(/"/g, "");+"<td></tr>";
   top2.push(JSON.stringify(sortedDict[t5]));
 }
-       console.log("media mundial");
+       console.log("Media mundial :",acum/count);
        sg=acum/count;
-       console.log(acum/count);
        if(sus_pai<acum)  {
         console.log("la sucripcion: ",sus_pai ," del país: ",pais,":",Cod," es menor a la media mundial")
 
@@ -142,25 +122,9 @@ for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
         k1 += "<tr><tr><th scope=row>"+j+"</th><td>"+menor[j]+"<td></tr>";
 
      }
-       cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>ANIO</th><th scope=col>PAIS</th><th scope=col>CODIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GOLBAL</th></tr></thead><tbody><tr><td>"+an+"</td><td>"+pais+"</td><td>"+Cod+"</td><td>"+sus_pai+"</td><td>"+sg+"</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>"+k+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>"+k1+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones </th></tr></thead><tbody>"+top1+"</tbody></table></div></div></div>")
-
-})
-
-function cargarHtml(dt){
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html');
-  fs.readFile('index.html', null, function(error, data) {
-      if (error) {
-          res.writeHead(404);
-          res.write('File not found!');
-      } else {
-          res.write(data+dt);
-      }
-      res.end();
-  });
+       metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>ANIO</th><th scope=col>PAIS</th><th scope=col>CODIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GOLBAL</th></tr></thead><tbody><tr><td>"+an+"</td><td>"+pais+"</td><td>"+Cod+"</td><td>"+sus_pai+"</td><td>"+sg+"</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>"+k+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>"+k1+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones </th></tr></thead><tbody>"+top1+"</tbody></table></div></div></div>")
 
 });
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});}
+}else{
+  console.log("comando no valido");
+}
