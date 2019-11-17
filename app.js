@@ -14,7 +14,10 @@ if (rgv.year==null){
   anio=2018;
 }
 
-  if (rgv.usuario ==='publicar' || rgv.usuario==='guardar'){
+
+
+
+  if ((rgv.usuario ==='publicar' || rgv.usuario==='guardar') && Number( rgv.year )){
             //console.log(results);
 
 fs.readFile(path, 'utf8', function (err, data) {
@@ -157,7 +160,20 @@ console.log('')
 
 });
 }else{
-  console.log("comando no valido");
+  
+  if(!(rgv.usuario ==='publicar')){
+    console.log(`ESCRIBA EL COMANDO PUBLICAR DE MANERA CORRECTA  `.red);
+    
+
+  }
+
+  if(!(rgv.usuario ==='guardar')){
+    console.log(`ESCRIBA EL COMANDO GUARDAR DE MANERA CORRECTA `.red);
+  }
+  if( !Number( rgv.year ) ){
+    console.log( `El valor introducido:`.cyan,` ${ rgv.year }`.red, `no es un número`.cyan )
+    
+  }
 }
 
 
