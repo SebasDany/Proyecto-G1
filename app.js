@@ -1,180 +1,176 @@
 const csv = require('csv-parser');
 const fs = require('fs');
-const rgv =require('yargs').argv;
+const rgv = require('yargs').argv;
 const colors = require('colors');
 
 const filepath = "pro.csv"
 const results = [];
-let path=rgv.file;
-let ciudadCod=rgv.country;
-let anio=rgv.year
+let path = rgv.file;
+let ciudadCod = rgv.country;
+let anio = rgv.year
 const metodo = require('./cargarhtml.js');
-let salir=rgv.out
-if (rgv.year==null){
-  anio=2018;
+let salir = rgv.out
+if (rgv.year == null) {
+    anio = 2018;
 }
 
 
 
 
-  if ((rgv.usuario ==='publicar' || rgv.usuario==='guardar') && Number( rgv.year )){
-            //console.log(results);
+if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year)) {
+    //console.log(results);
 
-fs.readFile(path, 'utf8', function (err, data) {
-  data = data.replace(/"/g, "");
-  var dataArray = data.split(/\r?\n/);
+    fs.readFile(path, 'utf8', function(err, data) {
+        data = data.replace(/"/g, "");
+        var dataArray = data.split(/\r?\n/);
 
-let b=0;
-let d=0;
-let acum=0;
-let count=0;
-let sus_pai;
-let pais="";
-let Cod="";
+        let b = 0;
+        let d = 0;
+        let acum = 0;
+        let count = 0;
+        let sus_pai;
+        let pais = "";
+        let Cod = "";
 
-const mayor1 = [];
-const top = {};
-const top2 = [];
+        const mayor1 = [];
+        const top = {};
+        const top2 = [];
 
-const menor = [];
-let l=0;
-let m=0;
-let k='';
-let k1='';
-let an=''
-let sg;
-let top1='';
-  for(var i = 0; i < dataArray.length-1;i++){
-        
-        d=dataArray[i].split(',');
+        const menor = [];
+        let l = 0;
+        let m = 0;
+        let k = '';
+        let k1 = '';
+        let an = ''
+        let sg;
+        let top1 = '';
+        for (var i = 0; i < dataArray.length - 1; i++) {
 
-        for(var j = 0; j < d.length;j++){
-           
-            if (d[j]==anio){
-                 b = j
-                 //console.log('AÑO :',d[j]); 
-                 an =d[j];
+            d = dataArray[i].split(',');
+
+            for (var j = 0; j < d.length; j++) {
+
+                if (d[j] == anio) {
+                    b = j
+                        //console.log('AÑO :',d[j]); 
+                    an = d[j];
+                }
+                if (d[j] == ciudadCod) {
+                    pais = d[j - 1];
+                    Cod = d[j];
+                    sus_pai = Number(d[b])
+                }
             }
-             if (d[j]==ciudadCod){
-             pais=d[j-1];
-             Cod=d[j];
-                sus_pai=Number(d[b])
-            }   
-        }
-        if (i>4){ 
+            if (i > 4) {
 
-          if (sus_pai<Number(d[b])  && l<5){
-            mayor1.push(d[0]+":"+Number(d[b]));
-           // console.log(d[0]);
-            l+=1;
-          }
-          if (sus_pai>Number(d[b])  && m<5){
-            menor.push(d[0]+":"+Number(d[b]));
-           // console.log(d[0]);
-            m+=1;
-          }   
-          if(d[b]==""){
-            //console.log(d[0],d[1],' : ',0);
-            acum+=0;
-            count=count+1;
-          }else{
-           // console.log(d[0],d[1],':',d[b]);
-            count=count+1;
-              acum+=Number(d[b]);
-             top[Number(d[b])]=d[0];           
-          }
+                if (sus_pai < Number(d[b]) && l < 5) {
+                    mayor1.push(d[0] + ":" + Number(d[b]));
+                    // console.log(d[0]);
+                    l += 1;
+                }
+                if (sus_pai > Number(d[b]) && m < 5) {
+                    menor.push(d[0] + ":" + Number(d[b]));
+                    // console.log(d[0]);
+                    m += 1;
+                }
+                if (d[b] == "") {
+                    //console.log(d[0],d[1],' : ',0);
+                    acum += 0;
+                    count = count + 1;
+                } else {
+                    // console.log(d[0],d[1],':',d[b]);
+                    count = count + 1;
+                    acum += Number(d[b]);
+                    top[Number(d[b])] = d[0];
+                }
+            }
+
         }
 
-       }
+        console.log('')
+        console.log('')
+        console.log(`LA MEDIA DE SUSCRIPCIONES DE TODOS LOS PAISES EN LA ANUALIDAD (YEAR) ESPECIFICADA : `.blue, `${ acum/count}`.green);
+        console.log('')
+        console.log('')
+        sg = acum / count;
+        if (sus_pai < acum) {
 
-       console.log('')
-       console.log('')
-       console.log(`LA MEDIA DE SUSCRIPCIONES DE TODOS LOS PAISES EN LA ANUALIDAD (YEAR) ESPECIFICADA : `.blue,`${ acum/count}`.green);
-       console.log('')
-       console.log('')
-       sg=acum/count;
-       if(sus_pai<acum)  {
-       
-        console.log( `LAS SUSCRIPCIONES:`.blue,` ${ sus_pai} `.green,` DEL PAIS:`.blue,` ${pais} : ${Cod}`.green, `ES MENOR A LA MEDIA MUNDIAL `.blue)
+            console.log(`LAS SUSCRIPCIONES:`.blue, ` ${ sus_pai} `.green, ` DEL PAIS:`.blue, ` ${pais} : ${Cod}`.green, `ES MENOR A LA MEDIA MUNDIAL `.blue)
+            console.log('')
+            console.log('')
+
+        } else {
+            console.log(`LAS SUSCRIPCIONES:`.blue, ` ${ sus_pai} `.green, ` DEL PAIS:`.blue, ` ${pais} : ${Cod}`.green, `ES MAYOR A LA MEDIA MUNDIAL `.blue)
+            console.log('')
+            console.log('')
+
+        }
+
+        console.log(`LOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
+        console.log(mayor1);
         console.log('')
         console.log('')
 
-       } else{
-        console.log( `LAS SUSCRIPCIONES:`.blue,` ${ sus_pai} `.green,` DEL PAIS:`.blue,` ${pais} : ${Cod}`.green, `ES MAYOR A LA MEDIA MUNDIAL `.blue)
+        console.log(`LOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
+        console.log(menor);
         console.log('')
-       console.log('')
+        console.log('')
 
-       } 
+        console.log(`EL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA`.blue)
+            //console.log(top);
+        var keys = Object.keys(top);
+        var i, len = keys.length;
+        keys.sort((a, b) => a - b);
+        var sortedDict = [];
+        for (i = 0; i < len; i++) {
 
-       console.log(`LOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
-       console.log(mayor1);
-       console.log('')
-       console.log('')
-       
-       console.log(`LOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
-       console.log(menor);
-       console.log('')
-       console.log('')
-       
-       console.log(`EL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA`.blue)
-       //console.log(top);
-var keys = Object.keys(top);
-var i, len = keys.length;  
-keys.sort((a, b) => a - b );
-var sortedDict = [];
-for (i = 0; i < len; i++)
-{
+            k = keys[i];
+            sortedDict.push({ 'SUSCRIP': k, 'PAIS': top[k] });
+        }
 
-k = keys[i];
-sortedDict.push({'SUSCRIP': k, 'PAIS':top[k]});
+        //Result
+        let x = 0
+        for (let t5 = sortedDict.length - 1; t5 >= sortedDict.length - 5; t5--) {
+            console.log(sortedDict[t5]);
+
+            JSON.stringify(sortedDict[t5]);
+            x += 1;
+            top1 += "<tr><tr><th scope=row>" + x + "</th><td>" + JSON.stringify(sortedDict[t5]).replace(/"/g, ""); + "<td></tr>";
+            top2.push(JSON.stringify(sortedDict[t5]));
+        }
+        console.log('')
+        console.log('')
+
+        if (rgv.usuario === 'guardar' && rgv.out === salir) {
+            console.log(salir)
+            metodo.guardarDatos(salir, " ", "\n===" + pais + "\t" + Cod + "\t" + an + "\t" + "Media mundial: " + sg + "===")
+            metodo.guardarDatos(salir, mayor1, "\nLos cinco países por encima del valor de suscripciones en \t" + an + "\n")
+            metodo.guardarDatos(salir, menor, "\nLos cinco países por debajo del valor de suscripciones en \t" + an + "\n")
+            metodo.guardarDatos(salir, top2, "\nLos top de cinco países \t" + an + "\n")
+
+        }
+
+        for (var j = 0; j < mayor1.length; j++) {
+            k += "<tr><th scope=row>" + j + "</th><td>" + mayor1[j] + "<td></tr>";
+            k1 += "<tr><tr><th scope=row>" + j + "</th><td>" + menor[j] + "<td></tr>";
+
+        }
+        metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>" + k + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
+    });
+} else {
+
+    console.log(`USTED ESCRIBIO:`.cyan, ` ${ rgv.usario }`.red, `  `.cyan, `${ rgv.year }`.red)
+    console.log('');
+    console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE PUBLICAR`.cyan);
+    console.log('');
+    console.log(`node app.js --usuario=publicar --file=api.csv --country=BDI --year=2000`.green)
+    console.log('');
+    console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE GUARDAR `.cyan);
+    console.log('');
+    console.log(`node app.js --usuario=guardar --file=api.csv --country=BDI --year=2000 --out=resultado/informacion`.green)
+    console.log('');
+    if (!Number(rgv.year)) {
+        console.log(`El valor introducido:`.cyan, ` ${ rgv.year }`.red, `no es un número`.cyan)
+
+    }
 }
-
-//Result
-let x=0
-for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
-  console.log(sortedDict[t5]);
-  
-  JSON.stringify(sortedDict[t5]);
-  x+=1;
-  top1 +="<tr><tr><th scope=row>"+x+"</th><td>"+JSON.stringify(sortedDict[t5]).replace(/"/g, "");+"<td></tr>";
-  top2.push(JSON.stringify(sortedDict[t5]));
-}
-console.log('')
-  console.log('')
-         
-       if (rgv.usuario==='guardar' && rgv.out===salir ){
-         console.log(salir)
-        metodo.guardarDatos(salir, " ","\n==="+pais+"\t"+Cod+"\t"+an+"\t"+"Media mundial: "+sg+"===")
-        metodo.guardarDatos(salir,mayor1,"\nLos cinco países por encima del valor de suscripciones en \t"+an+"\n")
-        metodo.guardarDatos(salir,menor,"\nLos cinco países por debajo del valor de suscripciones en \t"+an+"\n") 
-        metodo.guardarDatos(salir,top2,"\nLos top de cinco países \t"+an+"\n") 
-
-       }
-       
-      for(var j = 0; j < mayor1.length;j++){
-        k += "<tr><th scope=row>"+j+"</th><td>"+mayor1[j]+"<td></tr>";
-        k1 += "<tr><tr><th scope=row>"+j+"</th><td>"+menor[j]+"<td></tr>";
-
-     }
-       metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>ANIO</th><th scope=col>PAIS</th><th scope=col>CODIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GOLBAL</th></tr></thead><tbody><tr><td>"+an+"</td><td>"+pais+"</td><td>"+Cod+"</td><td>"+sus_pai+"</td><td>"+sg+"</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>"+k+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>"+k1+"</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones </th></tr></thead><tbody>"+top1+"</tbody></table></div></div></div>")
-
-});
-}else{
-
-  console.log( `USTED ESCRIBIO:`.cyan,` ${ rgv.usario }`.red,`  `.cyan,`${ rgv.year }`.red )
-  console.log('');
-console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE PUBLICAR`.cyan);
-console.log('');
-console.log(`node app.js --usuario=publicar --file=api.csv --country=BDI --year=2000`.green)
-console.log('');
-console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE GUARDAR `.cyan);
-console.log('');
-console.log(`node app.js --usuario=guardar --file=api.csv --country=BDI --year=2000 --out=resultado/informacion`.green)
-console.log('');
-  if( !Number( rgv.year ) ){
-    console.log( `El valor introducido:`.cyan,` ${ rgv.year }`.red, `no es un número`.cyan )
-    
-  }
-}
-
-
