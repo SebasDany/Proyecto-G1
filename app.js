@@ -49,7 +49,7 @@ let top1='';
            
             if (d[j]==anio){
                  b = j
-                 console.log('AÑO :',d[j]); 
+                 //console.log('AÑO :',d[j]); 
                  an =d[j];
             }
              if (d[j]==ciudadCod){
@@ -71,11 +71,11 @@ let top1='';
             m+=1;
           }   
           if(d[b]==""){
-            console.log(d[0],d[1],' : ',0);
+            //console.log(d[0],d[1],' : ',0);
             acum+=0;
             count=count+1;
           }else{
-            console.log(d[0],d[1],':',d[b]);
+           // console.log(d[0],d[1],':',d[b]);
             count=count+1;
               acum+=Number(d[b]);
              top[Number(d[b])]=d[0];           
@@ -84,13 +84,35 @@ let top1='';
 
        }
 
-       console.log('LOS QUE 5 MAYORES')
+       console.log('')
+       console.log('')
+       console.log("LA MEDIA DE SUSCRIPCIONES DE TODOS LOS PAÍSES EN EL YEAR ESPECIFICADO :",acum/count);
+       console.log('')
+       console.log('')
+       sg=acum/count;
+       if(sus_pai<acum)  {
+        console.log("LA SUSCRIPCION: ",sus_pai ," DEL PAIS: ",pais,":",Cod,"ES MENOR A LA MEDIA MUNDIAL")
+        console.log('')
+        console.log('')
+
+       } else{
+        console.log("LA SUSCRIPCION: ",sus_pai ,"DEL PAIS: ",pais,":",Cod,"ES MAYOR A LA MEDIA MUNDIAL")
+        console.log('')
+       console.log('')
+
+       } 
+
+       console.log('LOS CINCO PAÍSES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAÍS DETERMINADO')
        console.log(mayor1);
+       console.log('')
+       console.log('')
        
-       console.log('LOS QUE 5 menores')
+       console.log('LOS CINCO PAÍSES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAÍS DETERMINADO')
        console.log(menor);
+       console.log('')
+       console.log('')
        
-       console.log('top  5 mayores')
+       console.log('EL TOP CINCO DE PAÍSES PARA EL YEAR ESPECIFICADO')
        //console.log(top);
 var keys = Object.keys(top);
 var i, len = keys.length;  
@@ -100,27 +122,22 @@ for (i = 0; i < len; i++)
 {
 
 k = keys[i];
-sortedDict.push({'valor': k, 'pais':top[k]});
+sortedDict.push({'SUSCRIP': k, 'PAIS':top[k]});
 }
 
 //Result
 let x=0
 for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
   console.log(sortedDict[t5]);
+  
   JSON.stringify(sortedDict[t5]);
   x+=1;
   top1 +="<tr><tr><th scope=row>"+x+"</th><td>"+JSON.stringify(sortedDict[t5]).replace(/"/g, "");+"<td></tr>";
   top2.push(JSON.stringify(sortedDict[t5]));
 }
-       console.log("Media mundial :",acum/count);
-       sg=acum/count;
-       if(sus_pai<acum)  {
-        console.log("la sucripcion: ",sus_pai ," del país: ",pais,":",Cod," es menor a la media mundial")
-
-       } else{
-        console.log("la sucripcion: ",sus_pai ," del país: ",pais,":",Cod," es mayor a la media mundial")
-
-       }   
+console.log('')
+  console.log('')
+         
        if (rgv.usuario==='guardar' && rgv.out===salir ){
          console.log(salir)
         metodo.guardarDatos(salir, " ","\n==="+pais+"\t"+Cod+"\t"+an+"\t"+"Media mundial: "+sg+"===")
