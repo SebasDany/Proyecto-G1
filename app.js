@@ -126,6 +126,7 @@ for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
         metodo.guardarDatos(salir, " ","\n==="+pais+"\t"+Cod+"\t"+an+"\t"+"Media mundial: "+sg+"===")
         metodo.guardarDatos(salir,mayor1,"\nLos cinco países por encima del valor de suscripciones en \t"+an+"\n")
         metodo.guardarDatos(salir,menor,"\nLos cinco países por debajo del valor de suscripciones en \t"+an+"\n") 
+        metodo.guardarDatos(salir,top2,"\nLos top de cinco países \t"+an+"\n") 
 
        }
        
