@@ -117,6 +117,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         console.log('')
 
         console.log(`EL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA`.blue)
+        console.log(`SU->SUSCRIPCIONES`.bgBlue)
             //console.log(top);
         var keys = Object.keys(top);
         var i, len = keys.length;
@@ -125,7 +126,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         for (i = 0; i < len; i++) {
 
             k = keys[i];
-            sortedDict.push({ 'SUSCRIP': k, 'PAIS': top[k] });
+            sortedDict.push({ 'SU': k, ' PAIS ': top[k] });
         }
 
         //Result
@@ -135,7 +136,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
 
             JSON.stringify(sortedDict[t5]);
             x += 1;
-            top1 += "<tr><tr><th scope=row>" + x + "</th><td>" + JSON.stringify(sortedDict[t5]).replace(/"/g, ""); + "<td></tr>";
+            top1 += "<tr><tr><th scope=row>" + x + "</th><td>" + JSON.stringify(sortedDict[t5]).replace(/["{} ]/g, " "); + "<td></tr>";
             top2.push(JSON.stringify(sortedDict[t5]));
         }
         console.log('')
@@ -155,7 +156,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
             k1 += "<tr><tr><th scope=row>" + j + "</th><td>" + menor[j] + "<td></tr>";
 
         }
-        metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>" + k + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
+        metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>" + k + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones (SU -> SUSCRIPCIONES) </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
     });
 } else {
 
@@ -170,7 +171,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
     console.log(`node app.js --usuario=guardar --file=api.csv --country=BDI --year=2000 --out=resultado/informacion`.green)
     console.log('');
     if (!Number(rgv.year)) {
-        console.log(`El valor introducido:`.cyan, ` ${ rgv.year }`.red, `no es un número`.cyan)
+        console.log(`EL VALOR INTRODUCIDO:`.cyan, ` ${ rgv.year }`.red, `NO ES UN NUMERO`.cyan)
 
     }
 }
