@@ -9,11 +9,12 @@ let path=rgv.file;
 let ciudadCod=rgv.country;
 let anio=rgv.year
 const metodo = require('./cargarhtml.js');
+let salir=rgv.out
 if (rgv.year==null){
   anio=2018;
 }
 
-  if (rgv.usuario ==='publicar' ){
+  if (rgv.usuario ==='publicar' || rgv.usuario==='guardar'){
             //console.log(results);
 
 fs.readFile(path, 'utf8', function (err, data) {
@@ -80,12 +81,15 @@ let top1='';
              top[Number(d[b])]=d[0];           
           }
         }
+
        }
 
        console.log('LOS QUE 5 MAYORES')
        console.log(mayor1);
+       
        console.log('LOS QUE 5 menores')
        console.log(menor);
+       
        console.log('top  5 mayores')
        //console.log(top);
 var keys = Object.keys(top);
@@ -117,7 +121,15 @@ for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
         console.log("la sucripcion: ",sus_pai ," del país: ",pais,":",Cod," es mayor a la media mundial")
 
        }   
-       for(var j = 0; j < mayor1.length;j++){
+       if (rgv.usuario==='guardar' && rgv.out===salir ){
+         console.log(salir)
+        metodo.guardarDatos(salir, " ","\n==="+pais+"\t"+Cod+"\t"+an+"\t"+"Media mundial: "+sg+"===")
+        metodo.guardarDatos(salir,mayor1,"\nLos cinco países por encima del valor de suscripciones en \t"+an+"\n")
+        metodo.guardarDatos(salir,menor,"\nLos cinco países por debajo del valor de suscripciones en \t"+an+"\n") 
+
+       }
+       
+      for(var j = 0; j < mayor1.length;j++){
         k += "<tr><th scope=row>"+j+"</th><td>"+mayor1[j]+"<td></tr>";
         k1 += "<tr><tr><th scope=row>"+j+"</th><td>"+menor[j]+"<td></tr>";
 
@@ -128,3 +140,5 @@ for (let t5=sortedDict.length-1;t5>=sortedDict.length-5;t5--){
 }else{
   console.log("comando no valido");
 }
+
+
