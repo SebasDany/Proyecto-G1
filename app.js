@@ -160,16 +160,17 @@ console.log('')
 
 });
 }else{
-  
-  if(!(rgv.usuario ==='publicar')){
-    console.log(`ESCRIBA EL COMANDO PUBLICAR DE MANERA CORRECTA  `.red);
-    
 
-  }
-
-  if(!(rgv.usuario ==='guardar')){
-    console.log(`ESCRIBA EL COMANDO GUARDAR DE MANERA CORRECTA `.red);
-  }
+  console.log( `USTED ESCRIBIO:`.cyan,` ${ rgv.usario }`.red,`  `.cyan,`${ rgv.year }`.red )
+  console.log('');
+console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE PUBLICAR`.cyan);
+console.log('');
+console.log(`node app.js --usuario=publicar --file=api.csv --country=BDI --year=2000`.green)
+console.log('');
+console.log(`USTED DEBE ESCRIBIR DE ESTA MANERA SI QUIERE GUARDAR `.cyan);
+console.log('');
+console.log(`node app.js --usuario=guardar --file=api.csv --country=BDI --year=2000 --out=resultado/informacion`.green)
+console.log('');
   if( !Number( rgv.year ) ){
     console.log( `El valor introducido:`.cyan,` ${ rgv.year }`.red, `no es un número`.cyan )
     

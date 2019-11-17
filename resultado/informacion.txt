@@ -1,0 +1,23 @@
+
+Los cinco países por encima del valor de suscripciones en 	2000
+Bélgica:5629000 
+Benin:55476 
+Burkina Faso:25245 
+Bangladesh:279000 
+Bulgaria:738000 
+
+Los cinco países por debajo del valor de suscripciones en 	2000
+Bermudas:13000 
+Bhután:0 
+República Centroafricana:4967 
+Islas del Canal:0 
+Congo:12000 
+
+===Burundi	BDI	2000	Media mundial: 25269440.91287879===  
+
+Los top de cinco países 	2000
+{"SUSCRIP":"763459686","PAIS":"Ingreso alto"} 
+{"SUSCRIP":"680120909","PAIS":"BIRF y la AIF"} 
+{"SUSCRIP":"653551081","PAIS":"Sólo BIRF"} 
+{"SUSCRIP":"522343745","PAIS":"Asia oriental y el Pacífico"} 
+{"SUSCRIP":"473112459","PAIS":"Europa y Asia central"} 
