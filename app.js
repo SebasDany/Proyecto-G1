@@ -132,22 +132,22 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         //Result
         let x = 0
         for (let t5 = sortedDict.length - 1; t5 >= sortedDict.length - 5; t5--) {
-            console.log(sortedDict[t5]);
+            console.log(JSON.stringify(sortedDict[t5]).replace(/["{} ]/g, " ").green);
 
             JSON.stringify(sortedDict[t5]);
             x += 1;
             top1 += "<tr><tr><th scope=row>" + x + "</th><td>" + JSON.stringify(sortedDict[t5]).replace(/["{} ]/g, " "); + "<td></tr>";
-            top2.push(JSON.stringify(sortedDict[t5]));
+            top2.push(JSON.stringify(sortedDict[t5]).replace(/["{} ]/g, " "));
         }
         console.log('')
         console.log('')
 
         if (rgv.usuario === 'guardar' && rgv.out === salir) {
             console.log(salir)
-            metodo.guardarDatos(salir, " ", "\n===" + pais + "\t" + Cod + "\t" + an + "\t" + "Media mundial: " + sg + "===")
-            metodo.guardarDatos(salir, mayor1, "\nLos cinco países por encima del valor de suscripciones en \t" + an + "\n")
-            metodo.guardarDatos(salir, menor, "\nLos cinco países por debajo del valor de suscripciones en \t" + an + "\n")
-            metodo.guardarDatos(salir, top2, "\nLos top de cinco países \t" + an + "\n")
+            metodo.guardarDatos(salir, " ", "\n=== PAIS BUSCADO: " + pais + "\t, CODIGO DEL PAIS: " + Cod + "\t, ANUALIDAD (YEAR): " + an + "\t" + ", LA MEDIA DE SUSCRIPCIONES MUNDIAL: " + sg + " ===")
+            metodo.guardarDatos(salir, mayor1, "\nLOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO  EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
+            metodo.guardarDatos(salir, menor, "\nLOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
+            metodo.guardarDatos(salir, top2, "\nEL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA: \t" + an + "\n")
 
         }
 
