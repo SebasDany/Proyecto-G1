@@ -3,7 +3,7 @@ const fs = require('fs');
 const rgv = require('yargs').argv;
 const colors = require('colors');
 
-const filepath = "pro.csv"
+
 const results = [];
 let path = rgv.file;
 let ciudadCod = rgv.country;
@@ -86,6 +86,9 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
             }
 
         }
+        if(pais!=""){
+
+        
 
         console.log('')
         console.log('')
@@ -93,6 +96,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         console.log('')
         console.log('')
         sg = acum / count;
+        
         if (sus_pai < acum) {
 
             console.log(`LAS SUSCRIPCIONES:`.blue, ` ${ sus_pai} `.green, ` DEL PAIS:`.blue, ` ${pais} : ${Cod}`.green, `ES MENOR A LA MEDIA MUNDIAL `.blue)
@@ -107,12 +111,26 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         }
 
         console.log(`LOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
-        console.log(mayor1);
+        if(mayor1.length==0){
+            console.log(`NO HAY PAISES`.red);
+        }
+        for (var j = 0; j < mayor1.length; j++) {
+             console.log(mayor1[j].green);
+            
+        }
+        
         console.log('')
         console.log('')
 
         console.log(`LOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO`.blue)
-        console.log(menor);
+        if(menor.length==0){
+            console.log(`NO HAY PAISES`.red);
+        }
+        for (var j = 0; j < menor.length; j++) {
+            console.log(menor[j].green);
+            
+           
+       }
         console.log('')
         console.log('')
 
@@ -145,19 +163,42 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         if (rgv.usuario === 'guardar' && rgv.out === salir) {
             console.log(salir)
             metodo.guardarDatos(salir, " ", "\n=== PAIS BUSCADO: " + pais + "\t, CODIGO DEL PAIS: " + Cod + "\t, ANUALIDAD (YEAR): " + an + "\t" + ", LA MEDIA DE SUSCRIPCIONES MUNDIAL: " + sg + " ===")
-            metodo.guardarDatos(salir, mayor1, "\nLOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO  EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
-            metodo.guardarDatos(salir, menor, "\nLOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
-            metodo.guardarDatos(salir, top2, "\nEL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA: \t" + an + "\n")
-
+        
+    
+                s1=sus_pai<acum
+                if(s1===true){
+                    s1='Verdadero'
+                }else{
+                    s1='Falso'
+                }
+                metodo.guardarDatos(salir, " ", "\n LAS SUSCRIPCIONES: " + sus_pai + "\t, DEL PAIS: " + pais + " ES MENOR A LA MEDIA MUNDIAL: "+s1)
+                metodo.guardarDatos(salir, mayor1, "\nLOS CINCO PAISES POR ENCIMA DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO  EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
+                metodo.guardarDatos(salir, menor, "\nLOS CINCO PAISES POR DEBAJO DEL VALOR DE SUSCRIPCIONES DEL PAIS DETERMINADO EN LA ANUALIDAD (YEAR):  \t" + an + "\n")
+               
+                metodo.guardarDatos(salir, top2, "\nEL TOP CINCO DE PAISES PARA LA ANUALIDAD(YEAR) ESPECIFICADA: \t" + an + "\n")
+                metodo.guardarDatos(salir, " ", "\n================================================================================================================")
+    
+        
+          
+           
         }
 
         for (var j = 0; j < mayor1.length; j++) {
             k += "<tr><th scope=row>" + j + "</th><td>" + mayor1[j] + "<td></tr>";
-            k1 += "<tr><tr><th scope=row>" + j + "</th><td>" + menor[j] + "<td></tr>";
+            
 
         }
+        for (var j = 0; j < menor.length; j++) {
+        k1 += "<tr><tr><th scope=row>" + j + "</th><td>" + menor[j] + "<td></tr>";
+
+    }
         metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>" + k + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones (SU -> SUSCRIPCIONES) </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
-    });
+    }else{
+        console.log(`USTED DEBE ESCRIBIR UN PAIS EXISTENTE EN LA BASE DE DATOS CAMBIE EL CODIGO EN COUNTRY`.red);
+        console.log('');
+        console.log('RECUERDE QUE TAMBIEN SU CODIGO DEBE ESTAR EN MAYUSCULAS'.cyan);
+    }
+});
 } else {
 
     console.log(`USTED ESCRIBIO:`.cyan, ` ${ rgv.usario }`.red, `  `.cyan, `${ rgv.year }`.red)
