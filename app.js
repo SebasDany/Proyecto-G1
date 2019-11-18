@@ -3,7 +3,7 @@ const fs = require('fs');
 const rgv = require('yargs').argv;
 const colors = require('colors');
 
-
+let  km = ''
 const results = [];
 let path = rgv.file;
 let ciudadCod = rgv.country;
@@ -184,7 +184,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         }
 
         for (var j = 0; j < mayor1.length; j++) {
-            k += "<tr><th scope=row>" + j + "</th><td>" + mayor1[j] + "<td></tr>";
+            km += "<tr><th scope=row>" + j + "</th><td>" + mayor1[j] + "<td></tr>";
             
 
         }
@@ -192,7 +192,7 @@ if ((rgv.usuario === 'publicar' || rgv.usuario === 'guardar') && Number(rgv.year
         k1 += "<tr><tr><th scope=row>" + j + "</th><td>" + menor[j] + "<td></tr>";
 
     }
-        metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody>" + k + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones (SU -> SUSCRIPCIONES) </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
+        metodo.cargarHtml("<div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>AÑO</th><th scope=col>PAÍS</th><th scope=col>CÓDIGO</th><th scope=col>#SUSCRIPCIONES</th><th scope=col>MEDIA GLOBAL</th></tr></thead><tbody><tr><td>" + an + "</td><td>" + pais + "</td><td>" + Cod + "</td><td>" + sus_pai + "</td><td>" + sg + "</td></tbody></table><div class=container><div id=content><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por encima del valor de suscripciones </th></tr></thead><tbody></BR>" + km + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Paises por debajo del valor de suscripciones </th></tr></thead><tbody>" + k1 + "</tbody></table><table class=table><thead class=thead-dark><tr><th scope=col>#</th><th scope=col> Top de los 5 paises con mas suscripciones (SU -> SUSCRIPCIONES) </th></tr></thead><tbody>" + top1 + "</tbody></table></div></div></div>")
     }else{
         console.log(`USTED DEBE ESCRIBIR UN PAIS EXISTENTE EN LA BASE DE DATOS CAMBIE EL CODIGO EN COUNTRY`.red);
         console.log('');
